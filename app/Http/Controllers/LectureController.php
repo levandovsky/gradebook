@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Lecture;
 use App\Grade;
-use Illuminate\View\View;
+use Stevebauman\Purify\Facades\Purify;
 
 class LectureController extends Controller
 {
@@ -84,8 +84,8 @@ class LectureController extends Controller
                 'description' => 'string'
             ]);
             if ($validator->validated()) {
-                $lecture->name = $name;
-                $lecture->description = $description;
+                $lecture->name = Purify::clean($name);
+                $lecture->description = Purify::clean($description);
                 $lecture->save();
                 return redirect()->back();
             }
@@ -111,8 +111,8 @@ class LectureController extends Controller
         );
 
         if ($validator->validated()) {
-            $lecture->name = $name;
-            $lecture->description = $description;
+            $lecture->name = Purify::clean($name);
+            $lecture->description = Purify::clean($description);
             $lecture->save();
 
             return redirect()->route('lectures');

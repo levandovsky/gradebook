@@ -166,6 +166,8 @@ return [
          * Package Service Providers...
          */
 
+        Stevebauman\Purify\PurifyServiceProvider::class,
+
         /*
          * Application Service Providers...
          */

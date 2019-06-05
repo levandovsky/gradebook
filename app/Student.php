@@ -9,12 +9,16 @@ class Student extends Model
 {
     public $timestamps = false;
 
+    protected $table = 'students';
+
     protected $fillable = [
         'name',
         'lastname',
         'phone',
         'email'
     ];
+
+
 
     public function grade() {
         return $this->hasMany(Grade::class);

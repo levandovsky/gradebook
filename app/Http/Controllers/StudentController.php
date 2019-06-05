@@ -8,7 +8,7 @@ use App\Student;
 use App\Lecture;
 use App\Grade;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
+use Stevebauman\Purify\Facades\Purify;
 
 class StudentController extends Controller
 {
@@ -59,16 +59,16 @@ class StudentController extends Controller
             [
                 'name' => 'required',
                 'lastname' => 'required',
-                'phone' => 'required',
-                'email' => 'required|email'
+                'phone' => 'required | unique:students',
+                'email' => 'required|email| unique:students'
             ]
         );
 
         if ($validator->validated()) {
-            $student->name = $name;
-            $student->lastname = $lastname;
+            $student->name = Purify::clean($name);
+            $student->lastname = Purify::clean($lastname);
             $student->phone = $phone;
-            $student->email = $email;
+            $student->email = Purify::clean($email);
 
             $student->save();
             return redirect()->route('students');
@@ -95,8 +95,8 @@ class StudentController extends Controller
             [
                 'name' => 'required',
                 'lastname' => 'required',
-                'phone' => 'required',
-                'email' => 'required|email'
+                'phone' => "required|unique:students,phone,$id",
+                'email' => "required|email|unique:students,email,$id"
             ]
         );
 
