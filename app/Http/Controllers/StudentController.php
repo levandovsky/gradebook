@@ -93,8 +93,8 @@ class StudentController extends Controller
             [
                 'name' => 'required',
                 'lastname' => 'required',
-                'phone' => "required|unique:students,phone,$id",
-                'email' => "required|email|unique:students,email,$id"
+                'phone' => "required",
+                'email' => "required|email"
             ]
         );
 
