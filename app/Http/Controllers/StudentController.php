@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Student;
-use App\Lecture;
-use App\Grade;
 use Illuminate\Support\Facades\Validator;
 use Stevebauman\Purify\Facades\Purify;
 
@@ -67,7 +65,7 @@ class StudentController extends Controller
         if ($validator->validated()) {
             $student->name = Purify::clean($name);
             $student->lastname = Purify::clean($lastname);
-            $student->phone = $phone;
+            $student->phone = Purify::clean($phone);
             $student->email = Purify::clean($email);
 
             $student->save();
@@ -101,10 +99,10 @@ class StudentController extends Controller
         );
 
         if ($validator->validated()) {
-            $student->name = $name;
-            $student->lastname = $lastname;
-            $student->phone = $phone;
-            $student->email = $email;
+            $student->name = Purify::clean($name);
+            $student->lastname = Purify::clean($lastname);
+            $student->phone = Purify::clean($phone);
+            $student->email = Purify::clean($email);
 
             $student->save();
             return redirect()->back();
